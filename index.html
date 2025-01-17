@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <title>Convert</title>
+  </head>
+  <body>
+    
+    
+    
+
+    <main>
+      <form>
+        <label for="amount">Amount</label>
+        <input type="text" name="amount" id="amount" placeholder="0" required />
+
+        <label for="currency">Currency</label>
+        <select name="currency" id="currency" required>
+          <option value="" disabled selected hidden>Choose your currency</option>
+          <option value="USD">American Dollar</option>
+          <option value="EUR">Euros</option>
+          <option value="GBP">Pound Sterling</option>
+        </select>
+
+        <button type="submit">Convert to Brazilian Reais</button>
+      </form>
+
+      <footer>
+        <span id="description"></span>
+        <h1 id="result"></h1>
+      </footer>
+    </main>
+    <script src="./scripts.js"></script>
+  </body>
+</html>

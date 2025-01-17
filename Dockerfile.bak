@@ -1,0 +1,35 @@
+FROM node:20 AS build
+
+# RUN env YARN_VERSION=4.5.3 corepack enable && corepack prepare yarn@4.5.3 --activate
+WORKDIR /usr/src/app
+
+COPY package.json package-lock.json yarn.lock .yarnrc.yml ./
+COPY .yarn ./.yarn
+
+RUN yarn install
+# Copy the rest of the application source code
+COPY . .
+RUN ls -la /usr/src/app
+
+# Build the application
+RUN yarn run build
+#RUN yarn workspaces focus --production && yarn cache clean
+
+# Execution Stage
+FROM node:20-alpine3.20
+
+
+# RUN env YARN_VERSION=4.5.3 corepack enable && corepack prepare yarn@4.5.3 --activate
+
+WORKDIR /usr/src/app
+
+# Copy built application and dependencies from the build stage
+COPY --from=build /usr/src/app/package.json ./package.json
+COPY --from=build /usr/src/app/dist ./dist
+COPY --from=build /usr/src/app/node_modules ./node_modules
+
+# Expose the application port
+EXPOSE 3000
+
+# Start the application
+CMD ["yarn", "run", "start"]
